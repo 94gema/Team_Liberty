@@ -8,11 +8,11 @@ vidas2 = 20
 
 
 # (SORAYA) He creado los tableros dentro de la clase.
-tablero1 = Tablero(10) # type: ignore
+tablero1 = Tablero(10) 
 tablero1.tablero_player1(10)
 
 
-tablero2 = Tablero(10) # type: ignore
+tablero2 = Tablero(10)
 tablero2.tablero_player2(10)
 
 '''

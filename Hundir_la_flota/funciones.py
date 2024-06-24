@@ -55,11 +55,11 @@ while vidas1 > 0 and vidas2 > 0:   #el mensaje de bloque con sangría es porque 
 
 def disparar(tablero, fila, columna):
     # Comprueba si el disparo es un impacto
-    if tablero[fila][columna] == 'B':
+    if tablero[fila][columna] == 'O':
         tablero[fila][columna] = 'X'  # Marca el impacto
         return True
     else:
-        tablero[fila][columna] = 'O'  # Marca el fallo
+        tablero[fila][columna] = '-'  # Marca el fallo
         return False
 
 def hay_barcos(tablero):

@@ -50,3 +50,21 @@ while vidas1 > 0 and vidas2 > 0:   #el mensaje de bloque con sangría es porque 
                       '''                                            
     print("El juego ha terminado")
 
+
+    # Funciones para disparar y comprobar si hay barcos
+
+def disparar(tablero, fila, columna):
+    # Comprueba si el disparo es un impacto
+    if tablero[fila][columna] == 'B':
+        tablero[fila][columna] = 'X'  # Marca el impacto
+        return True
+    else:
+        tablero[fila][columna] = 'O'  # Marca el fallo
+        return False
+
+def hay_barcos(tablero):
+    # Comprueba si quedan barcos en el tablero
+    for fila in tablero:
+        if 'B' in fila:
+            return True
+    return False

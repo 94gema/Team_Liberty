@@ -32,3 +32,30 @@ class Barco:
             for pieza in barco:
                 tablero[pieza] = "O"
         return tablero
+    
+
+
+# Gustavo
+    '''
+Chicos no soy capaz de colocar los barcos aleatoriamente.
+Sí he podido hacer las funciones de disparar y de comprobar si hay barcos en el tablero.
+Lo que no me ha dado tiempo es a hacer una función para que vaya cambiando de jugador cuando falla.
+    '''
+  
+
+def disparar(tablero, fila, columna):
+    # Comprueba si el disparo es un impacto
+    if tablero[fila][columna] == 'B':
+        tablero[fila][columna] = 'X'  # Marca el impacto
+        return True
+    else:
+        tablero[fila][columna] = 'O'  # Marca el fallo
+        return False
+
+def hay_barcos(tablero):
+    # Comprueba si quedan barcos en el tablero
+    for fila in tablero:
+        if 'B' in fila:
+            return True
+    return False
+

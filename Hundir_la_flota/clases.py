@@ -1,5 +1,6 @@
 import numpy as np
-from Hundir_la_flota import variables 
+import variables
+import random
 
 class Tablero():
     def __init__(self, tamaño = 10):
@@ -26,6 +27,10 @@ class Barco:
               [(2,2), (2,1), (5,6), (4,6), (9,6), (9,5)], # barco2 (2 esloras x 3)
               [( 9,1), (9,2), (9,3), (0,7), (1,7), (2,7)], # barco3 (3 esloras x 2)
               [(7,3), (7,4), (7,5), (7,6)]] # barco4 (4 esloras x 1)
+    
+    def __init__(self, nombre, longitud):
+        self.nombre = nombre
+        self.longitud = longitud
 
     def coloca_barco(self, tablero):
         for barco in self.barcos:
@@ -33,14 +38,42 @@ class Barco:
                 tablero[pieza] = "O"
         return tablero
     
+    def crea_barco_aleatorio(self, tablero):
+        for barco in barcos_player2:
+            longitud = barco.longitud
+            fila = random.randint(0,9)
+            columna = random.randint(0,9)
+            orientacion = random.choice(["N", "S", "E", "O"])
+            if orientacion == "N": 
+                if fila - longitud >= 0: 
+                    if all(tablero[fila:fila + longitud, columna] == " "):
+                        tablero[fila:fila + longitud, columna] = "O" 
+            if orientacion == "S":
+                if fila + longitud <= len(tablero):
+                    if all(tablero[fila:fila + longitud, columna] == " "):                  
+                        tablero[fila:fila + longitud, columna] = "O"
+            if orientacion == "E":
+                if columna + longitud <= len(tablero):
+                    if all(tablero[fila, columna:columna + longitud] == " "):
+                        tablero[fila, columna:columna + longitud] = "O"
+            if orientacion == "O":
+                if columna  - longitud >= 0:
+                    if all(tablero[fila, columna:columna + longitud] == " "):
+                        tablero[fila, columna:columna + longitud] = "O"
+            return tablero
+
+
+
+    
+    
 
 
 # Gustavo
-    '''
+'''
 Chicos no soy capaz de colocar los barcos aleatoriamente.
 Sí he podido hacer las funciones de disparar y de comprobar si hay barcos en el tablero.
 lo he dejado en funciones
-    '''
+'''
   
 
 

@@ -1,4 +1,3 @@
-from Hundir_la_flota import clases 
 from clases import*
 
 player1 = input("Introduzca su nombre")
@@ -12,14 +11,32 @@ vidas2 = 20
 tablero1 = Tablero(10) 
 tablero1 = tablero1.tablero_player1(10)
 
-barcos = Barco()
+barcos_player1 = Barco()
 
-tablero1 = barcos.coloca_barco(tablero1)
+tablero1 = barcos_player1.coloca_barco(tablero1)
 
-tablero1
+print(tablero1)
 
 tablero2 = Tablero(10)
 tablero2.tablero_player2(10)
+
+barcos_player2 = [
+    Barco("barco1", 1),
+    Barco("barco2", 1),
+    Barco("barco3", 1),
+    Barco("barco4", 1),
+    Barco("barco5", 2),
+    Barco("barco6", 2),
+    Barco("barco7", 2),
+    Barco("barco8", 3),
+    Barco("barco9", 3),
+    Barco("barco10", 4)
+]
+
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2)
+
+print(tablero2)
+
 '''
 Hola equipo, soy Victor
 
@@ -35,3 +52,6 @@ la función contador de vidas, realmente no es una función sola sino que tendre
 Vamos en otras palabras que no son funciones independientes, desde mi punto de vista.
 Según vaya haciendola después las fusionamos.
 '''
+
+
+

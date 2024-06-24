@@ -33,7 +33,16 @@ barcos_player2 = [
     Barco("barco10", 4)
 ]
 
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2)
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco1")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco2")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco3")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco4")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco5")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco6")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco7")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco8")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco9")
+tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco10")
 
 print(tablero2)
 

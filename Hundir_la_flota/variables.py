@@ -35,6 +35,3 @@ la función contador de vidas, realmente no es una función sola sino que tendre
 Vamos en otras palabras que no son funciones independientes, desde mi punto de vista.
 Según vaya haciendola después las fusionamos.
 '''
-
-
-

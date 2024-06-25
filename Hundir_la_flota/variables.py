@@ -1,26 +1,26 @@
+import clases
 from clases import*
 
-player1 = input("Introduzca su nombre")
-player2 = "computadora"
-
-vidas1 = 20
-vidas2 = 20
-
-
+#2. VARIABLES TABLERO VACIO [Genma]
 # (SORAYA) He creado los tableros dentro de la clase.
-tablero1 = Tablero(10) 
+tablero1 = Tablero() 
 tablero1 = tablero1.tablero_player1(10)
 
-barcos_player1 = Barco()
-
-tablero1 = barcos_player1.coloca_barco(tablero1)
-
-print(tablero1)
-
 tablero2 = Tablero(10)
-tablero2.tablero_player2(10)
+tablero2 = tablero2.tablero_player2(10)
 
-barcos_player2 = [
+
+#3.VARIABLES PARA FUNCION BIENVENIDA [Genma] 
+player1 = input("Introduzca su nombre:")  #[Genma] Usado en funcion bienvenida
+player2 = "computadora" #[Genma] Usado en funcion bienvenida
+
+
+#6. VARIABLES BARCO [Genma]
+barcos_player1 = Barco()   #Victor
+barcos_player2 = Barco()   #[Genma] Duplico hasta que pongamos barcos aleatorios
+
+'''[Genma]Lo dejo para pruebas para barco aleatorio  
+barcos_player2 = [    #Victor
     Barco("barco1", 1),
     Barco("barco2", 1),
     Barco("barco3", 1),
@@ -32,19 +32,18 @@ barcos_player2 = [
     Barco("barco9", 3),
     Barco("barco10", 4)
 ]
+'''
 
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco1")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco2")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco3")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco4")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco5")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco6")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco7")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco8")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco9")
-tablero2 = barcos_player2.crea_barco_aleatorio(tablero2, "barco10")
 
-print(tablero2)
+#7. VARIABLE PARA POSICIONAR BARCOS [Genma]
+tablero1_barco = tablero1.copy()  
+tablero2_barco = tablero2.copy() 
+
+
+#10 VARIABLES VIDAS
+vidas1 = 2
+vidas2 = 2
+
 
 '''
 Hola equipo, soy Victor

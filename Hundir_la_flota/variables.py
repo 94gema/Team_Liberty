@@ -1,4 +1,3 @@
-import clases
 from clases import*
 
 #2. VARIABLES TABLERO VACIO [Genma]
@@ -40,9 +39,45 @@ tablero1_barco = tablero1.copy()
 tablero2_barco = tablero2.copy() 
 
 
-#10 VARIABLES VIDAS
-vidas1 = 2
-vidas2 = 2
+#10 VARIABLES VIDAS #Víctor, antes tenían 2 vidas. Realmente son 20 una por cada posición que tienen los barcos
+vidas1 = 20
+vidas2 = 20
+'''
+Víctor
+Editado 25/06
+Informe de misión xD
+Se me ha ido todo el tiempo en probar el juego y modificar algunas parte del código. 
+Sino me equivoco todas las líneas modificadas estan comentadas y aquellas funciones que estaban antes las he dejado entre comillas.
+Por si alguien ve una manera más efectiva y menos engorrosa
+
+He modificado el campo cuando se falla y he puesto una A en lugar _, al practicar me estaba dejando la vista y no daba pie con bola
+
+
+Queda pendiente aún poner los barcos de forma aleatoria.
+Sería bueno que creemos una opción para terminar la partida sin tener que llegar a quitar las vidas a la maquina
+Jugando confirmo que la maquina quita vidas pero no estoy seguro de si repite turno.
+
+Cuando se introduce una combinación fuera del 0 al 9 te dice que introduzcas una buena pero después sale un mensaje de error en el script funciones
+en la línea 46 con el siguiente mensaje:
+
+
+Se produjo una excepción: UnboundLocalError
+local variable 'columna' referenced before assignment
+  File "C:\Users\Victor\Desktop\Bootcamp\DS_Online_Mayo24\Team_Liberty\Hundir_la_flota\funciones.py", line 46, in coordenadas_disparo
+    if (fila < 1) or (fila > 10) or (columna < 1) or (columna > 10):
+  File "C:\Users\Victor\Desktop\Bootcamp\DS_Online_Mayo24\Team_Liberty\Hundir_la_flota\funciones.py", line 102, in disparar
+    fila_disparo, columna_disparo = coordenadas_disparo()
+  File "C:\Users\Victor\Desktop\Bootcamp\DS_Online_Mayo24\Team_Liberty\Hundir_la_flota\funciones.py", line 172, in jugar
+    acierto = disparar(tablero2, tablero2_barco)
+  File "C:\Users\Victor\Desktop\Bootcamp\DS_Online_Mayo24\Team_Liberty\Hundir_la_flota\main.py", line 10, in <module>
+    jugar()
+UnboundLocalError: local variable 'columna' referenced before assignment
+'''
+
+
+
+
+
 
 
 '''

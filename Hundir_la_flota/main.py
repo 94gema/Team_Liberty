@@ -1,8 +1,5 @@
 import numpy as np
 import random
-import clases
-import funciones
-import variables
 from clases import *
 from variables import *
 from funciones import *

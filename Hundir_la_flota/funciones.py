@@ -8,6 +8,7 @@ import random
 #3. VARIABLES PARA FUNCION BIENVENIDA [Genma] 
 
 
+
 #4. FUNCION 1[Genma]
 def bienvenida():  #[Genma] Presentación del juego. Paso 1 en main
     global player1, player2
@@ -17,9 +18,11 @@ def bienvenida():  #[Genma] Presentación del juego. Paso 1 en main
     input(f"{player1}, tú y la máquina tendreis cada uno un tablero como este:\n\n {tablero1}\n\n\tPulsa intro para posicionar tus barcos.")
    
 
+
 #5. CLASE BARCOS [Genma] Uso los mismos barcos para los dos tableros de momento
 #6. VARIABLES BARCO [Genma]
 #7. VARIABLE PARA POSICIONAR BARCOS [Genma]
+
 
 
 #8. POSICIONAR BARCOS EN TABLERO [Genma]
@@ -35,6 +38,7 @@ def colocar_barcos():
     input("\n\tPresiona Intro para empezar a disparar.")
 
 
+
 #9. CONTROL DE ERRORES Y PETICIÓN DE FILA COLUMNA 
 def coordenadas_disparo():  #[Genma] Añado los inputs y el control de errores
     try:       
@@ -42,61 +46,45 @@ def coordenadas_disparo():  #[Genma] Añado los inputs y el control de errores
         columna = int(input("Numero de columna donde quieres disparar del 1 al 10: "))
     except:
         print("\n\tPor favor, introduce un número del 1 al 10, vuelve a intentarlo.\n")
-        coordenadas_disparo()
+        return coordenadas_disparo()
     if (fila < 1) or (fila > 10) or (columna < 1) or (columna > 10):       #aquí sale un código de error, después de introducir coordenadas incorrectas. Te pide coordenadas nuevas las introduces y sale el error
         print("\n\tPor favor, introduce un numero del 1 al 10, vuelve a intentarlo.\n")
-        coordenadas_disparo()
+        return coordenadas_disparo()
     else:
         print(f"\tEl disparo se efectuará en la coordenada: ({fila},{columna})")
         return fila, columna     #[Genma]Variables locales
 
 
-#10. VARIABLES VIDAS
-'''
-#11. CONTADOR DE VIDAS [Genma]   [Víctor]#salen varios errores con las vidas edito contador vidas
-def contador_vidas(vidas):
-    global vidas1, vidas2
-    if vidas1 == 0:
-        print("Ohhh has perdido, gana la", player2)
-        return False
-    elif vidas2 == 0:
-        print("Enhorabuena!!! Has ganado a la", player2)
-        return False
-    else:
-        print(f"{player1} tiene {vidas1} vidas y {player2} tiene {vidas2} vidas.")
-        return True
 
-def contador_vidas(vidas1, vidas2):  #[Víctor] He cogido la función de Genma y la anterior mia. He hecho una fusión como vegeta y goku pero ha dado errores :(
-    if vidas1 == 0:
-        print(f"{player2} ha gando. El judador 1 se ha quedado con {vidas1} vidas")
-        return False
-    elif vidas2 == 0:
-        print(f"{player1} he ganado. El judador 2 se ha quedado con {vidas2} vidas")
-        return False
-    else:
-        print(f"{player1} tiene {vidas1} vidas y {player2} tiene {vidas2} vidas.")
-        return True
-'''
-#segunda versión del contador vidas, he dejado las dos anteriores entre comillas   
-def contador_vidas(player1, player2, vidas1, vidas2): #[Victor] Función para actualizar la vida restante de los jugadores, he cogido recorte de la de [Genma] 
-    if player1:  # Daba error al tener solo vidas, tuve que enlazar player 1 con vidas 1 y por descarte se enlaza player2 con vidas2
-        vidas1 -= 1
-    else:
-        vidas2 -= 1
-
-    if vidas1 == 0:
-        print(f"¡Enhorabuena {player2} has ganado! El jugador {player1} se ha quedado con {vidas1} vidas.")
-        return False
-    elif vidas2 == 0:
-        print(f"¡Enhorabuena {player1}has ganado! El jugador {player2} se ha quedado con {vidas2} vidas.")
-        return False
-
-    # Dice vidas restantes, pero ya está incluida en las funciones de disparar. Mañana podemos probar a quitarla a ver si no afecta
-    print(f"{player1} tiene {vidas1} vidas y {player2} tiene {vidas2} vidas.")
-    return True
+#10. JUGAR (CONTADORE DE VIDAS) 
+def jugar(): #[Victor] He modificado la funcion de jugar
+    global vidas1, vidas2, player1, player2
+    while True:
+        acierto = disparar(tablero2, tablero2_barco)
+        if acierto:
+            if vidas2 == 0:
+                print(f"¡Enhorabuena {player1} has ganado! El jugador {player2} se ha quedado con {vidas2} vidas.")
+                break
+        else:
+            print("Has fallado es turno de la máquina.")
+            #PARA SEGUIR JUNGANDO:
+            respuesta = input("Si quieres parar el juego, escribe: Stop.\nPara continuar pulse: Intro\n").title()
+            if respuesta == "Stop":
+                print("El juego ha terminado. ¡Gracias por jugar!")
+                break
+            acierto_maquina = disparar_maquina(tablero1, tablero1_barco)
+            if acierto_maquina:
+                if vidas1 == 0:
+                    print(f"¡Enhorabuena {player2} has ganado! El jugador {player1} se ha quedado con {vidas1} vidas.")
+                    break
+            else:
+                print("La máquina no ha acertado. Turno del jugador.")
+    print("se acabo")  
 
 
-#12. DISPARAR JUGADOR 
+
+
+#11. DISPARAR JUGADOR 
 def disparar(tablero, tablerobarco): #[Genma]Siempre disparará al tablero2_agua [Victor] He modificado la función, algunas partes las he borrado y otras modificado. 
     global tablero2, tablero2_barco, vidas2
     fila_disparo, columna_disparo = coordenadas_disparo()
@@ -105,8 +93,7 @@ def disparar(tablero, tablerobarco): #[Genma]Siempre disparará al tablero2_agua
     if tablero2_barco[fila_disparo-1][columna_disparo-1] == 'O':   #[Genma] Añado -1 para pensar como humanos y no como maquinas. Buscamos en tablero barco y marcamos en el vacio
         tablero2[fila_disparo-1][columna_disparo-1] = 'X'  # Marca el impacto
         vidas2 -= 1
-        print(f"El jugador {player1} ha acertado. Ha quitado una vida a {player2} le quedan {vidas2}") #[Victor] puse encima vidas1 y debajo el print para que salga el mensaje de cuantas vidas quedan
-        #vidas = contador_vidas(vidas2) he cambio la función
+        print(f"El jugador {player1} ha acertado. Ha quitado una vida a {player2} le quedan {vidas2}.") #[Victor] puse encima vidas1 y debajo el print para que salga el mensaje de cuantas vidas quedan
         acierto = True
         print("\nAsi queda el tablero del", player2,"\n",tablero2)
         if acierto == True:
@@ -116,12 +103,13 @@ def disparar(tablero, tablerobarco): #[Genma]Siempre disparará al tablero2_agua
     #CUANDO NO HAY IMPACTO
     else:
         tablero2[fila_disparo-1][columna_disparo-1] = 'A'  # Marca el fallo
-        print(f"\nEl jugador {player1} no ha acertado. Le quedan {vidas2} vidas al jugador {player2}") #[Victor]he añadido más información al print, así se sabe las vidas restantes
+        print(f"\nEl jugador {player1} no ha acertado. Le quedan {vidas2} vidas al jugador {player2}.") #[Victor]he añadido más información al print, así se sabe las vidas restantes
         print("\nAsi queda el tablero del", player2,"\n",tablero2)
         return False
 
 
-#13. DISPARAR MAQUINA  [Genma] No lo he pronado.  [Victor] he modificado la función, algunas partes las he borrado y otras modificado. 
+
+#12. DISPARAR MAQUINA  [Genma] No lo he pronado.  [Victor] he modificado la función, algunas partes las he borrado y otras modificado. 
 def disparar_maquina(tablero,tablerobarco): #[Genma]Siempre disparará al tablero1_agua
     global tablero1, tablero1_barco, vidas1
     fila = random.randint(0,9)
@@ -132,59 +120,18 @@ def disparar_maquina(tablero,tablerobarco): #[Genma]Siempre disparará al tabler
         tablero1[fila][columna] = 'X'  # Marca el impacto
         vidas1 -= 1
         print(f"El jugador {player2} ha acertado. Ha quitado una vida a {player1} le quedan {vidas1}") #[Victor] puse encima vidas1 y debajo el print para que salga el mensaje de cuantas vidas quedan
-        #vidas1 = contador_vidas(vidas1)  #he puesto vidas1 en lugar de vidas
         acierto = True #[Victor] he copiado la estructura de disparar en esta parte
         print("\nAsi queda el tablero del", player1,"\n",tablero1)
         if acierto == True:
             return True
         else:
             return False
-        #return vidas1, [Victor] Al modificar las funciones no reconoce acierto y vidas, finalmente lo he quitado y he puesto lo de arriba
     #CUANDO NO HAY IMPACTO
     else:
         tablero1[fila][columna] = 'A'  # Marca el fallo
         print(f"\nEl jugador {player2} no ha acertado. Le quedan {vidas1} vidas al jugador {player1}") #[Victor]he añadido más información al print, así se sabe las vidas restantes
         print("\nAsi queda el tablero del", player1,"\n",tablero1)
-        #vidas1 == True   #daba error en este punto porque no reconoce la variable vidas
-        #acierto = False
-        return vidas1, # [Victor] Al modificar las funciones no reconoce acierto y vidas, finalmente lo he quitado y he puesto lo de arriba
-'''
-#14 FUNDICON BUCLE
-def jugar():
-    global vidas
-    while True:
-        vidas, acierto = disparar(tablero2, tablero2_barco)
-        if vidas == False:
-            break
-        elif acierto == False:
-            break
-        else:
-            continue
-    #while True:
-        #disparar_maquina(tablero1, tablero1_barco)
-    jugar()
-
-'''
-
-def jugar(): #[Victor] He modificado la funcion de jugar
-    global vidas1, vidas2
-    while True:
-        acierto = disparar(tablero2, tablero2_barco)
-        if acierto:
-            if vidas2 == 0:
-                break
-        else:
-            print("Has fallado es turno de la máquina.")
-            acierto_maquina = disparar_maquina(tablero1, tablero1_barco)
-            if acierto_maquina:
-                if vidas1 == 0:
-                    break
-            else:
-                print("La máquina no ha acertado. Turno del jugador.")
-                continue
-    print("se acabo")
-
-            
+        return vidas1 # [Victor] Al modificar las funciones no reconoce acierto y vidas, finalmente lo he quitado y he puesto lo de arriba
 
 
 
@@ -193,15 +140,51 @@ def jugar(): #[Victor] He modificado la funcion de jugar
 
 
 
-#QUEDAN BARCOS?      [Genma] Creo que está no hace falta con el contador de vidas.
-def hay_barcos(tablero):
-    # Comprueba si quedan barcos en el tablero
-    for fila in tablero:
-        if 'B' in fila:
-            return True
-    return False
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# #13. SEGUIR JUGANDO
+# def seguir_jugando():
+#     respuesta = input("¿Quieres seguir jugando? (si/no): ").lower()
+#     if respuesta == "si":
+#         return True
+#     elif respuesta == "no":
+#         print("El juego ha terminado. ¡Gracias por jugar!")
+#         return False
+#     else:
+#         print("Respuesta no válida. Por favor, escribe 'si' o 'no'.")
+#         return seguir_jugando()
+    
 
 
 '''
@@ -257,29 +240,92 @@ while vidas1 > 0 and vidas2 > 0:   #el mensaje de bloque con sangría es porque 
     # Funciones para disparar y comprobar si hay barcos
 '''
 # FUNCION PARA CONTINUAR EN EL JUEGO
+#Seria la funcion 13
 
-def seguir_jugando():
-    respuesta = input("¿Quieres seguir jugando? (si/no): ").lower()
-    if respuesta == "si":
-        return True
-    elif respuesta == "no":
-        print("El juego ha terminado. ¡Gracias por jugar!")
+
+# # PARA UTILIZARLA.
+# '''
+# Creo que que se debería hacer así pero no me ha dado tiempo a probarla
+# '''
+# while True:
+#     # Aquí iría el código para disparar en el juego
+
+#     # Después de disparar, se pregunta al jugador si quiere seguir jugando
+#     if not seguir_jugando():
+#         break
+
+
+
+#10. VARIABLES VIDAS
+'''
+#11. CONTADOR DE VIDAS [Genma]   [Víctor]#salen varios errores con las vidas edito contador vidas
+def contador_vidas(vidas):
+    global vidas1, vidas2
+    if vidas1 == 0:
+        print("Ohhh has perdido, gana la", player2)
+        return False
+    elif vidas2 == 0:
+        print("Enhorabuena!!! Has ganado a la", player2)
         return False
     else:
-        print("Respuesta no válida. Por favor, escribe 'si' o 'no'.")
-        return seguir_jugando()
+        print(f"{player1} tiene {vidas1} vidas y {player2} tiene {vidas2} vidas.")
+        return True
 
-# PARA UTILIZARLA.
+def contador_vidas(vidas1, vidas2):  #[Víctor] He cogido la función de Genma y la anterior mia. He hecho una fusión como vegeta y goku pero ha dado errores :(
+    if vidas1 == 0:
+        print(f"{player2} ha gando. El judador 1 se ha quedado con {vidas1} vidas")
+        return False
+    elif vidas2 == 0:
+        print(f"{player1} he ganado. El judador 2 se ha quedado con {vidas2} vidas")
+        return False
+    else:
+        print(f"{player1} tiene {vidas1} vidas y {player2} tiene {vidas2} vidas.")
+        return True
 '''
-Creo que que se debería hacer así pero no me ha dado tiempo a probarla
+# #10. CONTADOR VIDAS segunda versión del contador vidas, he dejado las dos anteriores entre comillas   
+# def contador_vidas(player1, player2, vidas1, vidas2): #[Victor] Función para actualizar la vida restante de los jugadores, he cogido recorte de la de [Genma] 
+#     if player1:  # Daba error al tener solo vidas, tuve que enlazar player 1 con vidas 1 y por descarte se enlaza player2 con vidas2
+#         vidas1 -= 1    #Si juegua
+#     else:
+#         vidas2 -= 1
+
+#     if vidas1 == 0:
+#         print(f"¡Enhorabuena {player2} has ganado! El jugador {player1} se ha quedado con {vidas1} vidas.")
+#         return False
+#     elif vidas2 == 0:
+#         print(f"¡Enhorabuena {player1}has ganado! El jugador {player2} se ha quedado con {vidas2} vidas.")
+#         return False
+
+#     # Dice vidas restantes, pero ya está incluida en las funciones de disparar. Mañana podemos probar a quitarla a ver si no afecta
+#     print(f"{player1} tiene {vidas1} vidas y {player2} tiene {vidas2} vidas.")
+#     return True
+# 
+# 
 '''
-while True:
-    # Aquí iría el código para disparar en el juego
+#14 FUNDICON BUCLE
+def jugar():
+    global vidas
+    while True:
+        vidas, acierto = disparar(tablero2, tablero2_barco)
+        if vidas == False:
+            break
+        elif acierto == False:
+            break
+        else:
+            continue
+    #while True:
+        #disparar_maquina(tablero1, tablero1_barco)
+    jugar()
 
-    # Después de disparar, se pregunta al jugador si quiere seguir jugando
-    if not seguir_jugando():
-        break
+'''
 
-
-
+        
+# #QUEDAN BARCOS?      [Genma] Creo que está no hace falta con el contador de vidas.
+# def hay_barcos(tablero):
+#     # Comprueba si quedan barcos en el tablero
+#     for fila in tablero:
+#         if 'B' in fila:
+#             return True
+#     return False
+    
 

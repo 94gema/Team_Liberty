@@ -13,12 +13,10 @@ class Tablero():      #[Genma] Usado para Tablero1 y Tablero2
     def tablero_player2(self, tamaño):
         t2 = np.full((tamaño,tamaño), " ")
         return t2  #[Genma]Variable local
-    
-# (SORAYA): He empezado a crear la clase, he puesto por defecto los barcos ya con sus posiciones. Lo he tenido que hacer de esta forma (lista de listas)
-# porque de uno en uno era más trabajoso a la hora de hacer la funcion 'coloca_barco'
 
 
-#Falta hacer colocar la máquina de forma aleatoria los barcos. Supongo que aquí hará falta el costructor __init__
+
+
 
 #5. CLASE BARCOS [Genma] Uso los mismos barcos para los dos tableros de momento
 class Barco:  #[Gustavo]
@@ -63,19 +61,5 @@ class Barco:  #[Gustavo]
                         tablero[fila, columna:columna + longitud] = "O"
             return tablero
 
-
-
-    
-    
-'''
-
-# Gustavo
-
-Chicos no soy capaz de colocar los barcos aleatoriamente.
-Sí he podido hacer las funciones de disparar y de comprobar si hay barcos en el tablero.
-lo he dejado en funciones
-
-  
-'''
 
 

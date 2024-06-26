@@ -256,8 +256,29 @@ while vidas1 > 0 and vidas2 > 0:   #el mensaje de bloque con sangría es porque 
 
     # Funciones para disparar y comprobar si hay barcos
 '''
+# FUNCION PARA CONTINUAR EN EL JUEGO
 
+def seguir_jugando():
+    respuesta = input("¿Quieres seguir jugando? (si/no): ").lower()
+    if respuesta == "si":
+        return True
+    elif respuesta == "no":
+        print("El juego ha terminado. ¡Gracias por jugar!")
+        return False
+    else:
+        print("Respuesta no válida. Por favor, escribe 'si' o 'no'.")
+        return seguir_jugando()
 
+# PARA UTILIZARLA.
+'''
+Creo que que se debería hacer así pero no me ha dado tiempo a probarla
+'''
+while True:
+    # Aquí iría el código para disparar en el juego
+
+    # Después de disparar, se pregunta al jugador si quiere seguir jugando
+    if not seguir_jugando():
+        break
 
 
 

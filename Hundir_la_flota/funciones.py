@@ -117,7 +117,7 @@ def disparar_maquina(tablero,tablerobarco):
 # Comprueba si el disparo es un impacto
     #CUANDO SI HAY IMPACTO
     if tablero1_barco[fila][columna] == 'O':  
-        tablero1[fila][columna] = 'X'  #
+        tablero1[fila][columna] = 'X' 
         vidas1 -= 1
         print(f"El jugador {player2} ha acertado. Ha quitado una vida a {player1} le quedan {vidas1}") 
         acierto = True 

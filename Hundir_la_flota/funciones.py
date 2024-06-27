@@ -3,14 +3,14 @@ from variables import*
 import random
 
 
-#1. CLASE TABLERO [Genma]
-#2. VARIABLES TABLERO VACIO [Genma]
-#3. VARIABLES PARA FUNCION BIENVENIDA [Genma] 
+#1. CLASE TABLERO 
+#2. VARIABLES TABLERO VACIO 
+#3. VARIABLES PARA FUNCION BIENVENIDA 
 
 
 
-#4. FUNCION 1[Genma]
-def bienvenida():  #[Genma] Presentación del juego. Paso 1 en main
+#4. FUNCION 1
+def bienvenida(): 
     global player1, player2
     print("\n¡Bienvenido a hundir la flota ", player1, "!", sep="")
     print("\nSu oponente será la ", player2, ". Que gane el mejor.\n", sep="")
@@ -19,45 +19,45 @@ def bienvenida():  #[Genma] Presentación del juego. Paso 1 en main
    
 
 
-#5. CLASE BARCOS [Genma] Uso los mismos barcos para los dos tableros de momento
-#6. VARIABLES BARCO [Genma]
-#7. VARIABLE PARA POSICIONAR BARCOS [Genma]
+#5. CLASE BARCOS 
+#6. VARIABLES BARCO 
+#7. VARIABLE PARA POSICIONAR BARCOS 
 
 
 
-#8. POSICIONAR BARCOS EN TABLERO [Genma]
+#8. POSICIONAR BARCOS EN TABLERO
 def colocar_barcos():
     global tablero1_barco, tablero2_barco, barcos_player1, barcos_player2
     tablero1_barco = barcos_player1.coloca_barco(tablero1_barco)  #Soraya
     print("\n",player1, "la posición de tus barcos es la siguiente:")
     print(tablero1_barco)
 
-    tablero2_barco = barcos_player2.coloca_barco(tablero2_barco)  #Soraya  [Genma] Duplico hasta que pongamos barcos aleatorios
-    #tablero2_barco = barcos_player2.crea_barco_aleatorio(tablero2) #Soraya [Genma]Lo dejo para pruebas de barco aleatorio
-    #print(tablero2_barco)  #para comprobación
+    for barco in barcos_player2:
+        barco.coloca_barco_aleatorio()
+    
     input("\n\tPresiona Intro para empezar a disparar.")
 
 
 
 #9. CONTROL DE ERRORES Y PETICIÓN DE FILA COLUMNA 
-def coordenadas_disparo():  #[Genma] Añado los inputs y el control de errores
+def coordenadas_disparo(): 
     try:       
         fila= int(input("Numero de fila donde quieres disparar del 1 al 10: "))
         columna = int(input("Numero de columna donde quieres disparar del 1 al 10: "))
     except:
         print("\n\tPor favor, introduce un número del 1 al 10, vuelve a intentarlo.\n")
         return coordenadas_disparo()
-    if (fila < 1) or (fila > 10) or (columna < 1) or (columna > 10):       #aquí sale un código de error, después de introducir coordenadas incorrectas. Te pide coordenadas nuevas las introduces y sale el error
+    if (fila < 1) or (fila > 10) or (columna < 1) or (columna > 10):      
         print("\n\tPor favor, introduce un numero del 1 al 10, vuelve a intentarlo.\n")
         return coordenadas_disparo()
     else:
         print(f"\tEl disparo se efectuará en la coordenada: ({fila},{columna})")
-        return fila, columna     #[Genma]Variables locales
+        return fila, columna     
 
 
 
 #10. JUGAR (CONTADORE DE VIDAS) 
-def jugar(): #[Victor] He modificado la funcion de jugar
+def jugar(): 
     global vidas1, vidas2, player1, player2
     while True:
         acierto = disparar(tablero2, tablero2_barco)
@@ -85,15 +85,15 @@ def jugar(): #[Victor] He modificado la funcion de jugar
 
 
 #11. DISPARAR JUGADOR 
-def disparar(tablero, tablerobarco): #[Genma]Siempre disparará al tablero2_agua [Victor] He modificado la función, algunas partes las he borrado y otras modificado. 
+def disparar(tablero, tablerobarco):  
     global tablero2, tablero2_barco, vidas2
     fila_disparo, columna_disparo = coordenadas_disparo()
 # Comprueba si el disparo es un impacto
     #SI HAY IMPACTO
-    if tablero2_barco[fila_disparo-1][columna_disparo-1] == 'O':   #[Genma] Añado -1 para pensar como humanos y no como maquinas. Buscamos en tablero barco y marcamos en el vacio
-        tablero2[fila_disparo-1][columna_disparo-1] = 'X'  # Marca el impacto
+    if tablero2_barco[fila_disparo-1][columna_disparo-1] == 'O':   
+        tablero2[fila_disparo-1][columna_disparo-1] = 'X'  
         vidas2 -= 1
-        print(f"El jugador {player1} ha acertado. Ha quitado una vida a {player2} le quedan {vidas2}.") #[Victor] puse encima vidas1 y debajo el print para que salga el mensaje de cuantas vidas quedan
+        print(f"El jugador {player1} ha acertado. Ha quitado una vida a {player2} le quedan {vidas2}.") 
         acierto = True
         print("\nAsi queda el tablero del", player2,"\n",tablero2)
         if acierto == True:
@@ -102,25 +102,25 @@ def disparar(tablero, tablerobarco): #[Genma]Siempre disparará al tablero2_agua
             return False
     #CUANDO NO HAY IMPACTO
     else:
-        tablero2[fila_disparo-1][columna_disparo-1] = 'A'  # Marca el fallo
-        print(f"\nEl jugador {player1} no ha acertado. Le quedan {vidas2} vidas al jugador {player2}.") #[Victor]he añadido más información al print, así se sabe las vidas restantes
+        tablero2[fila_disparo-1][columna_disparo-1] = 'A'  
+        print(f"\nEl jugador {player1} no ha acertado. Le quedan {vidas2} vidas al jugador {player2}.") 
         print("\nAsi queda el tablero del", player2,"\n",tablero2)
         return False
 
 
 
-#12. DISPARAR MAQUINA  [Genma] No lo he pronado.  [Victor] he modificado la función, algunas partes las he borrado y otras modificado. 
-def disparar_maquina(tablero,tablerobarco): #[Genma]Siempre disparará al tablero1_agua
+#12. DISPARAR MAQUINA   
+def disparar_maquina(tablero,tablerobarco):
     global tablero1, tablero1_barco, vidas1
     fila = random.randint(0,9)
     columna = random.randint(0,9)
 # Comprueba si el disparo es un impacto
     #CUANDO SI HAY IMPACTO
-    if tablero1_barco[fila][columna] == 'O':   #[Genma] Quito el  -1 porque ya pensamos como la maquina
-        tablero1[fila][columna] = 'X'  # Marca el impacto
+    if tablero1_barco[fila][columna] == 'O':  
+        tablero1[fila][columna] = 'X'  #
         vidas1 -= 1
-        print(f"El jugador {player2} ha acertado. Ha quitado una vida a {player1} le quedan {vidas1}") #[Victor] puse encima vidas1 y debajo el print para que salga el mensaje de cuantas vidas quedan
-        acierto = True #[Victor] he copiado la estructura de disparar en esta parte
+        print(f"El jugador {player2} ha acertado. Ha quitado una vida a {player1} le quedan {vidas1}") 
+        acierto = True 
         print("\nAsi queda el tablero del", player1,"\n",tablero1)
         if acierto == True:
             return True
@@ -128,10 +128,10 @@ def disparar_maquina(tablero,tablerobarco): #[Genma]Siempre disparará al tabler
             return False
     #CUANDO NO HAY IMPACTO
     else:
-        tablero1[fila][columna] = 'A'  # Marca el fallo
-        print(f"\nEl jugador {player2} no ha acertado. Le quedan {vidas1} vidas al jugador {player1}") #[Victor]he añadido más información al print, así se sabe las vidas restantes
+        tablero1[fila][columna] = 'A' 
+        print(f"\nEl jugador {player2} no ha acertado. Le quedan {vidas1} vidas al jugador {player1}") 
         print("\nAsi queda el tablero del", player1,"\n",tablero1)
-        return vidas1 # [Victor] Al modificar las funciones no reconoce acierto y vidas, finalmente lo he quitado y he puesto lo de arriba
+        return vidas1 
 
 
 

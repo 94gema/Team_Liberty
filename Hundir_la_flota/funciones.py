@@ -12,7 +12,7 @@ import random
 #4. FUNCION 1
 def bienvenida(): 
     global player1, player2
-    print("\n¡Bienvenido a hundir la flota ", player1, "!", sep="")
+    print("\n¡Bienvenido a 'Hundir la flota' ", player1, "!", sep="")
     print("\nSu oponente será la ", player2, ". Que gane el mejor.\n", sep="")
     print("Los tableros de ambos jugadores serán una cuadrícula de 10x10.")
     input(f"{player1}, tú y la máquina tendreis cada uno un tablero como este:\n\n {tablero1}\n\n\tPulsa intro para posicionar tus barcos.")
@@ -42,8 +42,8 @@ def colocar_barcos():
 #9. CONTROL DE ERRORES Y PETICIÓN DE FILA COLUMNA 
 def coordenadas_disparo(): 
     try:       
-        fila= int(input("\nNumero de fila donde quieres disparar del 1 al 10: "))
-        columna = int(input("Numero de columna donde quieres disparar del 1 al 10: "))
+        fila= int(input("\nNúmero de fila donde quieres disparar del 1 al 10: "))
+        columna = int(input("Número de columna donde quieres disparar del 1 al 10: "))
     except:
         print("\n\tPor favor, introduce un número del 1 al 10, vuelve a intentarlo.\n")
         return coordenadas_disparo()
@@ -64,7 +64,7 @@ def jugar():
         acierto = disparar(tablero2, tablero2_barco)
         if acierto:
             if vidas2 == 0:
-                print(f"¡Enhorabuena {player1} has ganado! El jugador {player2} se ha quedado con {vidas2} vidas.")
+                print(f"¡Enhorabuena {player1}, has ganado! El jugador {player2} se ha quedado con {vidas2} vidas.")
                 break
         else:
             print("Has fallado es turno de la máquina.")
@@ -76,10 +76,10 @@ def jugar():
             acierto_maquina = disparar_maquina(tablero1, tablero1_barco)
             if acierto_maquina:
                 if vidas1 == 0:
-                    print(f"¡Enhorabuena {player2} has ganado! El jugador {player1} se ha quedado con {vidas1} vidas.")
+                    print(f"¡Enhorabuena {player2}, has ganado! El jugador {player1} se ha quedado con {vidas1} vidas.")
                     break
             else:
-                print("La máquina no ha acertado. Turno del jugador.")
+                print("La computadora no ha acertado. Turno del jugador.")
     print("se acabo")  
 
 
@@ -89,15 +89,19 @@ def jugar():
 def disparar(tablero, tablerobarco):  
     global tablero2, tablero2_barco, vidas2
     fila_disparo, columna_disparo = coordenadas_disparo()
+    #Comprobar si el disparo ya se ha ejecutado
+    if tablero2[fila_disparo-1][columna_disparo-1] == 'X' or tablero2[fila_disparo-1][columna_disparo-1] == 'A':
+        print("\nYa has disparado en esta coordenada. Vuelve a poner coordenadas diferentes")
+        return disparar(tablero, tablerobarco)
 # Comprueba si el disparo es un impacto
     #SI HAY IMPACTO
     if tablero2_barco[fila_disparo-1][columna_disparo-1] == 'O':   
         tablero2[fila_disparo-1][columna_disparo-1] = 'X'  
         vidas2 -= 1
-        print(f"\nEl jugador {player1} ha acertado. Ha quitado una vida a {player2} le quedan {vidas2}.") 
+        print(f"\nEl jugador {player1} ha acertado. Ha quitado una vida a {player2}, le quedan {vidas2}.") 
         acierto = True
         print(f"\nVuelves a disparar {player1}")
-        print("\nAsi queda el tablero del", player2,"\n",tablero2)
+        print("\nAsi queda el tablero del jugador", player2,"\n",tablero2)
         if acierto == True:
             return True
         else:
@@ -106,7 +110,7 @@ def disparar(tablero, tablerobarco):
     else:
         tablero2[fila_disparo-1][columna_disparo-1] = 'A'  
         print(f"\nEl jugador {player1} no ha acertado. Le quedan {vidas2} vidas al jugador {player2}.") 
-        print("\nAsi queda el tablero del", player2,"\n",tablero2)
+        print("\nAsi queda el tablero del jugador", player2,"\n",tablero2)
         return False
 
 
@@ -119,14 +123,14 @@ def disparar_maquina(tablero,tablerobarco):
     if tablero1_barco[fila][columna] == 'O':  
         tablero1[fila][columna] = 'X' 
         vidas1 -= 1
-        print(f"\nEl jugador {player2} ha acertado. Ha quitado una vida a {player1} le quedan {vidas1}") 
-        print("\nAsi queda el tablero del", player1,"\n",tablero1)
+        print(f"El jugador {player2} ha acertado. Ha quitado una vida a {player1}, le quedan {vidas1}") 
+        print("\nAsi queda el tablero del jugador", player1,"\n",tablero1)
         print(f"\n{player2} vuelve a disparar")
         return disparar_maquina(tablero, tablerobarco)
     else:
         tablero1[fila][columna] = 'A' 
         print(f"\nEl jugador {player2} no ha acertado. Le quedan {vidas1} vidas al jugador {player1}") 
-        print("\nAsi queda el tablero del", player1,"\n",tablero1)
+        print("\nAsi queda el tablero del jugador", player1,"\n",tablero1)
         return vidas1 
 
 

@@ -42,7 +42,7 @@ def colocar_barcos():
 #9. CONTROL DE ERRORES Y PETICIÓN DE FILA COLUMNA 
 def coordenadas_disparo(): 
     try:       
-        fila= int(input("Numero de fila donde quieres disparar del 1 al 10: "))
+        fila= int(input("\nNumero de fila donde quieres disparar del 1 al 10: "))
         columna = int(input("Numero de columna donde quieres disparar del 1 al 10: "))
     except:
         print("\n\tPor favor, introduce un número del 1 al 10, vuelve a intentarlo.\n")
@@ -51,6 +51,7 @@ def coordenadas_disparo():
         print("\n\tPor favor, introduce un numero del 1 al 10, vuelve a intentarlo.\n")
         return coordenadas_disparo()
     else:
+        print()
         print(f"\tEl disparo se efectuará en la coordenada: ({fila},{columna})")
         return fila, columna     
 
@@ -68,7 +69,7 @@ def jugar():
         else:
             print("Has fallado es turno de la máquina.")
             #PARA SEGUIR JUNGANDO:
-            respuesta = input("Si quieres parar el juego, escribe: Stop.\nPara continuar pulse: Intro\n").title()
+            respuesta = input("\nSi quieres parar el juego, escribe: Stop.\nPara continuar pulse: Intro\n").title()
             if respuesta == "Stop":
                 print("El juego ha terminado. ¡Gracias por jugar!")
                 break
@@ -93,8 +94,9 @@ def disparar(tablero, tablerobarco):
     if tablero2_barco[fila_disparo-1][columna_disparo-1] == 'O':   
         tablero2[fila_disparo-1][columna_disparo-1] = 'X'  
         vidas2 -= 1
-        print(f"El jugador {player1} ha acertado. Ha quitado una vida a {player2} le quedan {vidas2}.") 
+        print(f"\nEl jugador {player1} ha acertado. Ha quitado una vida a {player2} le quedan {vidas2}.") 
         acierto = True
+        print(f"\nVuelves a disparar {player1}")
         print("\nAsi queda el tablero del", player2,"\n",tablero2)
         if acierto == True:
             return True
@@ -114,19 +116,13 @@ def disparar_maquina(tablero,tablerobarco):
     global tablero1, tablero1_barco, vidas1
     fila = random.randint(0,9)
     columna = random.randint(0,9)
-# Comprueba si el disparo es un impacto
-    #CUANDO SI HAY IMPACTO
     if tablero1_barco[fila][columna] == 'O':  
         tablero1[fila][columna] = 'X' 
         vidas1 -= 1
-        print(f"El jugador {player2} ha acertado. Ha quitado una vida a {player1} le quedan {vidas1}") 
-        acierto = True 
+        print(f"\nEl jugador {player2} ha acertado. Ha quitado una vida a {player1} le quedan {vidas1}") 
         print("\nAsi queda el tablero del", player1,"\n",tablero1)
-        if acierto == True:
-            return True
-        else:
-            return False
-    #CUANDO NO HAY IMPACTO
+        print(f"\n{player2} vuelve a disparar")
+        return disparar_maquina(tablero, tablerobarco)
     else:
         tablero1[fila][columna] = 'A' 
         print(f"\nEl jugador {player2} no ha acertado. Le quedan {vidas1} vidas al jugador {player1}") 

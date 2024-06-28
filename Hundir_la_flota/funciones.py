@@ -9,7 +9,7 @@ import random
 
 
 
-#4. FUNCION 1
+#4. FUNCION BIENVENIDA 
 def bienvenida(): 
     global player1, player2
     print("\n¡Bienvenido a 'Hundir la flota' ", player1, "!", sep="")
@@ -28,11 +28,11 @@ def bienvenida():
 #8. POSICIONAR BARCOS EN TABLERO
 def colocar_barcos():
     global tablero1_barco, tablero2_barco, barcos_player1, barcos_player2
-    tablero1_barco = barcos_player1.coloca_barco(tablero1_barco)  #Soraya
+    tablero1_barco = barcos_player1.coloca_barco(tablero1_barco)  
     print("\n",player1, "la posición de tus barcos es la siguiente:")
     print(tablero1_barco)
 
-    for barco in barcos_player2:
+    for barco in barcos_player2: #Bucle para recorrer la lista de barcos del player2 y añadirlos en el tablero
         barco.coloca_barco_aleatorio()
     
     input("\n\tPresiona Intro para empezar a disparar.")
@@ -57,7 +57,7 @@ def coordenadas_disparo():
 
 
 
-#10. JUGAR (CONTADORE DE VIDAS) 
+#10. JUGAR (CONTADOR DE VIDAS) 
 def jugar(): 
     global vidas1, vidas2, player1, player2
     while True:
@@ -93,7 +93,6 @@ def disparar(tablero, tablerobarco):
     if tablero2[fila_disparo-1][columna_disparo-1] == 'X' or tablero2[fila_disparo-1][columna_disparo-1] == 'A':
         print("\nYa has disparado en esta coordenada. Vuelve a poner coordenadas diferentes")
         return disparar(tablero, tablerobarco)
-# Comprueba si el disparo es un impacto
     #SI HAY IMPACTO
     if tablero2_barco[fila_disparo-1][columna_disparo-1] == 'O':   
         tablero2[fila_disparo-1][columna_disparo-1] = 'X'  
@@ -131,6 +130,7 @@ def disparar_maquina(tablero,tablerobarco):
         tablero1[fila][columna] = 'A' 
         print(f"\nEl jugador {player2} no ha acertado. Le quedan {vidas1} vidas al jugador {player1}") 
         print("\nAsi queda el tablero del jugador", player1,"\n",tablero1)
+        print("\nEs tu turno")
         return vidas1 
 
 

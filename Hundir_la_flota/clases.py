@@ -39,34 +39,34 @@ class Barco_npc:
         self.tablero = tablero
 
     def coloca_barco_aleatorio(self):
-        intentos_max = 100  
+        intentos_max = 100  # Número de intentos para poder posicionar todos los barcos dados
         for _ in range(intentos_max):
             fila = random.randint(0, 9)
             columna = random.randint(0, 9)
             orientacion = random.choice(["N", "S", "E", "O"])
 
             if orientacion == "N":
-                if fila - self.longitud + 1 >= 0:  
+                if fila - self.longitud + 1 >= 0:  # Comprueba si hay espacio hacia arriba
                     if all(self.tablero[fila - i, columna] == " " for i in range(self.longitud)):
                         for i in range(self.longitud):
                             self.tablero[fila - i, columna] = "O"
                         return True
 
-            elif orientacion == "S":
+            elif orientacion == "S": # Comprueba si hay espacio hacia abajo
                 if fila + self.longitud - 1 <= 9:  
                     if all(self.tablero[fila + i, columna] == " " for i in range(self.longitud)):
                         for i in range(self.longitud):
                             self.tablero[fila + i, columna] = "O"
                         return True
 
-            elif orientacion == "E":
+            elif orientacion == "E": # Comprueba si hay espacio hacia la derecha
                 if columna + self.longitud - 1 <= 9:  
                     if all(self.tablero[fila, columna + i] == " " for i in range(self.longitud)):
                         for i in range(self.longitud):
                             self.tablero[fila, columna + i] = "O"
                         return True
 
-            elif orientacion == "O":
+            elif orientacion == "O": # Comprueba si hay espacio hacia la izquierda
                 if columna - self.longitud + 1 >= 0:  
                     if all(self.tablero[fila, columna - i] == " " for i in range(self.longitud)):
                         for i in range(self.longitud):
